@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <data>
+        <record model="ir.module.category" id="module_category_job_pos">
+            <field name="name">Job positions access rights</field>
+            <field name="sequence">20</field>
+        </record>
+
+         <record model="res.groups" id="job_pos_user">
+             <field name="name">user rights</field>
+             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+             <field name="category_id" ref="module_category_job_pos"/>
+         </record>
+
+        <record model="res.groups" id="job_pos_access">
+            <field name="name">admin rights</field>
+            <field name="implied_ids" eval="[(4, ref('contact_positions.job_pos_user'))]"/>
+            <field name="category_id" ref="module_category_job_pos"/>
+        </record>
+
+    </data>
+</odoo>

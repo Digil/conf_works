@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+pos_admin_user,job pos access rights,model_job_positions,contact_positions.job_pos_access,1,1,1,1
+pos_user_user,job pos user rights,model_job_positions,contact_positions.job_pos_user,1,1,0,0
+
+org_admin_user,org admin rights,model_organisation_types,contact_positions.job_pos_access,1,1,1,1
+org_user_user,org user rights,model_organisation_types,contact_positions.job_pos_user,1,1,0,0
+
+cred_admin_user,credentials admin access,model_credential_setup,contact_positions.job_pos_access,1,1,1,1
+cred_user_user,credentials user access,model_credential_setup,contact_positions.job_pos_user,1,1,0,0

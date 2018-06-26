@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="organisation_details" model="ir.ui.view">
+            <field name="name">organisation details</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='sales_purchases']" position="after">
+                    <page name="organisation_name" string="Organisation" attrs="{'invisible':[['is_company','=',False]]}">
+                        <group name="Organisational details" colspan="2">
+                            <group>
+                                <field name="organization_no"/>
+                                <field name="products" domain="[('type','!=','service')]" widget="many2many_tags"/>
+                                <field name="notes"/>
+                            </group>
+                            <group>
+                                <field name="services" domain="[('type','=','service')]"  widget="many2many_tags"/>
+                                <field name="account_owner"/>
+                                <field name="credentials_setup"/>
+                                <field name="organisation_type"/>
+                            </group>
+                        </group>
+                    </page>
+                    <!--<field name="external"/>-->
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_partner_job_functions" model="ir.ui.view">
+            <field name="name">job functions</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[1]/field[@name='child_ids']/form/sheet/group/group[2]" position="after">
+                    <group name="Contact details">
+                            <field name="job_function" widget="many2many_tags"/>
+                            <!--<field name="first_name"/>-->
+                            <!--<field name="last_name"/>-->
+                            <field name="organisation_name"/>
+                            <field name="primary"/>
+                            <field name="extension"/>
+                            <field name="fax"/>
+                            <field name="contact_owner"/>
+                            <field name="reports_to"/>
+                            <field name="department"/>
+                            <field name="last_stay_date"/>
+                            <field name="contact_street"/>
+                            <field name="contact_city"/>
+                            <field name="contact_province" context="{'country_id':country_id, 'zip':zip}"/>
+                            <field name="contact_zip"/>
+                            <field name="contact_country"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="job_positions" model="ir.actions.act_window">
+            <field name="name">Job Positions</field>
+            <field name="res_model">job.positions</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html"><p class="oe_view_nocontent_create">
+                    Create new job details
+                </p></field>
+        </record>
+
+        <menuitem id="job_positions_menu" name="Job Positions" parent="contacts.menu_contacts"/>
+        <menuitem  id="job_pos" name="Job Positions" action="job_positions" parent="job_positions_menu"/>
+
+        <record id="job_poss" model="ir.ui.view">
+            <field name="name">job.positions.form</field>
+            <field name="model">job.positions</field>
+            <field name="arch" type="xml">
+                <form string="job Position details">
+                    <sheet>
+                        <group>
+                            <field name="job_positions"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="job_poss_tree" model="ir.ui.view">
+            <field name="name">job.positions.tree</field>
+            <field name="model">job.positions</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="job_positions"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="org_types" model="ir.actions.act_window">
+            <field name="name">Organisation Type</field>
+            <field name="res_model">organisation.types</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html"><p class="oe_view_nocontent_create">
+                    Create new Contact Types
+                </p></field>
+        </record>
+
+        <menuitem action="org_types" id="org_type" name="Organisation Types" parent="job_positions_menu"/>
+
+        <record id="org_type_form_view" model="ir.ui.view">
+            <field name="name">organisation types form</field>
+            <field name="model">organisation.types</field>
+            <field name="arch" type="xml">
+                <form string="organisation types details">
+                        <group>
+                            <field name="organisation_type"/>
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="org_type_tree_view" model="ir.ui.view">
+            <field name="name">organisation types tree</field>
+            <field name="model">organisation.types</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="organisation_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="credential_trust_setup" model="ir.actions.act_window">
+            <field name="name">Credential Trust Setup</field>
+            <field name="res_model">credential.setup</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html"><p class="oe_view_nocontent_create">
+                    Create new CeCredential Trust Setup
+                </p></field>
+        </record>
+
+        <menuitem action="credential_trust_setup" id="credentials" name="Credential Setup" parent="job_positions_menu"/>
+
+        <record id="credential_setup_form_view" model="ir.ui.view">
+            <field name="name">credential trust form</field>
+            <field name="model">credential.setup</field>
+            <field name="arch" type="xml">
+                <form string="credential trust setup">
+                        <group>
+                            <field name="credential_trust_setup"/>
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="credential_setup_tree_view" model="ir.ui.view">
+            <field name="name">credential trust tree</field>
+            <field name="model">credential.setup</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="credential_trust_setup"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>
